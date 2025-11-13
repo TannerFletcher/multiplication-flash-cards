@@ -1,0 +1,670 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    body {background-color: #f0f1f4}
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #cacaca; -webkit-text-stroke: #cacaca}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #cacaca; -webkit-text-stroke: #cacaca; min-height: 16.0px}
+    span.s1 {font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="en"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;title&gt;Multiplication Flash Cards 1-12&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;!-- Load Tailwind CSS for modern, responsive styling --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;style&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>body {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-family: 'Inter', sans-serif;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #f0f4f8; /* Light blue-gray background */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: flex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>justify-content: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>align-items: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>min-height: 100vh;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 1rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* --- Game Board Container --- */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.game-container {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>max-width: 900px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>width: 100%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #ffffff;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 1.5rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* --- Flash Card Styling --- */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>#flashcard {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>min-height: 200px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 16px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #3b82f6; /* Blue base */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transition: all 0.1s ease-out;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>/* Centering content within the card */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: flex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>flex-direction: column;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>justify-content: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>align-items: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.correct-flash {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #10b981 !important; /* Green */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>box-shadow: 0 0 20px #10b981;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* Keyframe for the quick spin effect on incorrect answer */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>@keyframes spin-reveal {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>0% { transform: scale(1) rotate(0deg); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>50% { transform: scale(1.05) rotate(5deg); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>100% { transform: scale(1) rotate(0deg); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.incorrect-flash {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #ef4444 !important; /* Red */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>box-shadow: 0 0 20px #ef4444;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>animation: spin-reveal 0.3s ease-in-out; /* Apply a quick spin on reveal */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* --- Number Pad Buttons --- */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.num-pad-btn {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #e5e7eb; /* Light gray */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #1f2937; /* Dark text */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transition: background-color 0.1s;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.num-pad-btn:hover:enabled {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #d1d5db; /* Darker gray on hover */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.num-pad-btn:active:enabled {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transform: scale(0.95);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* --- Utility Buttons (Mode/Reset) --- */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.utility-btn {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-weight: 600;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 12px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transition: background-color 0.15s;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* --- Mobile Responsiveness --- */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>@media (min-width: 640px) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>.game-grid {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>grid-template-columns: 2fr 1fr;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>#flashcard {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>min-height: 300px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;body&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="game-container"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;!-- Title and Progress Bar --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;header class="text-center mb-6"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;h1 id="app-title" class="text-4xl font-extrabold text-gray-800 mb-2"&gt;Times Table Trainer&lt;/h1&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;p class="text-gray-500 font-medium" id="mode-display"&gt;Mode: Compounding Progression&lt;/p&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;!-- Current Level/Progress --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div id="progress-bar-container" class="mt-4"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;p id="progress-text" class="text-md font-semibold text-blue-600"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>Current Level: 1x Table</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="w-full bg-gray-200 rounded-full h-3.5 mt-2 overflow-hidden"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div id="progress-bar" class="bg-green-500 h-3.5 rounded-full transition-all duration-300 ease-out" style="width: 0%"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;!-- Timed Mode Score Display --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;p id="timed-score-display" class="text-xl font-bold text-gray-700 mt-4 hidden"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>Score: 0</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/header&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;main class="grid game-grid gap-6"&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;!-- Flash Card &amp; Input Area --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;section class="flex flex-col space-y-4"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div id="flashcard" class="p-8 text-center flex-grow"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div id="card-content"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;p class="text-6xl font-bold mb-4" id="equation"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>1 x 12</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;p class="text-2xl font-semibold opacity-75"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>=</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;p class="text-5xl font-extrabold" id="user-input-display"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>_</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div id="completion-message" class="hidden text-center"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                         </span>&lt;p class="text-6xl font-bold mb-4"&gt;🥳&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                         </span>&lt;p class="text-3xl font-extrabold"&gt;Great Job!&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                         </span>&lt;p class="text-xl mt-2"&gt;You completed all the tables!&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                         </span>&lt;button id="reset-button-completion" class="utility-btn bg-red-500 text-white mt-4 py-2 px-6 hover:bg-red-600"&gt;Reset Progress&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;p id="feedback-message" class="text-center font-semibold h-6"&gt;&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;!-- Number Pad and Controls --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;aside class="flex flex-col space-y-4"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;!-- Number Pad --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div id="numpad" class="grid grid-cols-3 gap-3 bg-gray-100 p-4 rounded-xl"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;button class="num-pad-btn py-4 text-3xl rounded-lg" data-key="7"&gt;7&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;button class="num-pad-btn py-4 text-3xl rounded-lg" data-key="8"&gt;8&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;button class="num-pad-btn py-4 text-3xl rounded-lg" data-key="9"&gt;9&lt;/button&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                    </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;button class="num-pad-btn py-4 text-3xl rounded-lg" data-key="4"&gt;4&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;button class="num-pad-btn py-4 text-3xl rounded-lg" data-key="5"&gt;5&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;button class="num-pad-btn py-4 text-3xl rounded-lg" data-key="6"&gt;6&lt;/button&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;button class="num-pad-btn py-4 text-3xl rounded-lg" data-key="1"&gt;1&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;button class="num-pad-btn py-4 text-3xl rounded-lg" data-key="2"&gt;2&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;button class="num-pad-btn py-4 text-3xl rounded-lg" data-key="3"&gt;3&lt;/button&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                    </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;button class="num-pad-btn py-4 text-3xl rounded-lg bg-red-400 text-white hover:bg-red-500" data-key="clear"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>C</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;button class="num-pad-btn py-4 text-3xl rounded-lg" data-key="0"&gt;0&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;button class="num-pad-btn py-4 text-3xl rounded-lg bg-green-500 text-white hover:bg-green-600" data-key="enter"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>Go</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;!-- Mode &amp; Reset Controls --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="flex flex-col space-y-3 pt-4 border-t border-gray-200"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-lg font-bold text-gray-700"&gt;Settings&lt;/h3&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;!-- Table Practice Dropdown --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;select id="practice-select" class="utility-btn w-full p-3 bg-yellow-400 text-gray-900 hover:bg-yellow-500"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;!-- Options generated by JS --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/select&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;!-- Reset Button --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;button id="reset-button-main" class="utility-btn bg-red-500 text-white p-3 hover:bg-red-600"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>Reset Progress (Compounding Mode)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/aside&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/main&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// --- Game State and Constants ---</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const MAX_TABLE = 12;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const PROGRESS_STORAGE_KEY = 'multiplicationTrainerProgress';</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let gameState = {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>currentTable: 1, // The highest table included in compounding mode</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>mode: 'progression', // 'progression', 'practice', or 'timed'</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>practiceTable: 1, // Only used if mode is 'practice'</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>difficultyTime: 5000, // Time in ms for timed mode</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>timedScore: 0, // Score for timed mode</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>timedLevel: 1, // Current table in timed mode</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>timedLevelProgress: [], // Questions remaining in the current timed level</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>timer: null, // Timer reference for timed mode</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>currentEquation: { a: 0, b: 0, answer: 0 },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>userInput: '',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>tableScore: {} // Tracks correct answers for the current table (Compounding Mode)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// --- DOM Elements ---</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const elements = {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>equation: document.getElementById('equation'),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>userInputDisplay: document.getElementById('user-input-display'),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>numpad: document.getElementById('numpad'),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>flashcard: document.getElementById('flashcard'),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>feedback: document.getElementById('feedback-message'),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>progressBar: document.getElementById('progress-bar'),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>progressText: document.getElementById('progress-text'),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>modeDisplay: document.getElementById('mode-display'),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>practiceSelect: document.getElementById('practice-select'),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>resetMain: document.getElementById('reset-button-main'),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>resetCompletion: document.getElementById('reset-button-completion'),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>cardContent: document.getElementById('card-content'),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>completionMessage: document.getElementById('completion-message'),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>timedScoreDisplay: document.getElementById('timed-score-display'),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>};</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// --- Helper Function ---</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function clearCurrentTimer() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (gameState.timer) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>clearTimeout(gameState.timer);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>gameState.timer = null;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// --- Initialization and Persistence ---</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function loadProgress() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const savedState = localStorage.getItem(PROGRESS_STORAGE_KEY);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (savedState) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const loaded = JSON.parse(savedState);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if(loaded.currentTable) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>gameState.currentTable = loaded.currentTable;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if(loaded.tableScore) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>gameState.tableScore = loaded.tableScore;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (gameState.currentTable &gt; MAX_TABLE) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>gameState.currentTable = MAX_TABLE + 1;<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>initializePracticeDropdown();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>updateUI();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>generateNewCard();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function saveProgress() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const stateToSave = {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>currentTable: gameState.currentTable,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>tableScore: gameState.tableScore</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>};</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(stateToSave));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function resetProgression() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>gameState.currentTable = 1;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>gameState.tableScore = {};</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>gameState.userInput = '';</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>elements.completionMessage.classList.add('hidden');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>elements.cardContent.classList.remove('hidden');</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>saveProgress();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>setMode('progression');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>generateNewCard();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>updateUI();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>elements.feedback.textContent = "Progress reset! Starting with 1x table.";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>elements.feedback.classList.remove('text-green-600');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>elements.feedback.classList.add('text-red-600');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// --- Mode and UI Switching ---</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function initializePracticeDropdown() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>elements.practiceSelect.innerHTML = '&lt;option value="progression"&gt;-- Compounding Tables Mode --&lt;/option&gt;';</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Add practice tables</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>for (let i = 1; i &lt;= MAX_TABLE; i++) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const option = document.createElement('option');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>option.value = `practice-${i}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>option.textContent = `Practice ${i}x Table Only`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.practiceSelect.appendChild(option);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Add timed competition modes</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>elements.practiceSelect.innerHTML += `</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;option value="timed-5000"&gt;Timed Competition (Easy: 5s)&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;option value="timed-3000"&gt;Timed Competition (Medium: 3s)&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;option value="timed-2000"&gt;Timed Competition (Hard: 2s)&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function initializeTimedLevel(table) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>// Populate the level with all 12 questions for the given table</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>gameState.timedLevelProgress = [];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>for (let i = 1; i &lt;= MAX_TABLE; i++) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>gameState.timedLevelProgress.push(`${table}x${i}`);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function setMode(newMode, value = null) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>clearCurrentTimer(); // Always clear timer when changing modes</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>gameState.userInput = '';</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (newMode === 'progression') {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>gameState.mode = 'progression';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.modeDisplay.textContent = "Mode: Compounding Progression";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.resetMain.disabled = false;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>} else if (newMode === 'practice') {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>gameState.mode = 'practice';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>gameState.practiceTable = value;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.modeDisplay.textContent = `Mode: Practice ${value}x Table Only`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.resetMain.disabled = true;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>} else if (newMode === 'timed') {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>gameState.mode = 'timed';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>gameState.difficultyTime = value;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>gameState.timedScore = 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>gameState.timedLevel = 1;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>initializeTimedLevel(1);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.modeDisplay.textContent = `Mode: Timed Competition (${value / 1000}s)`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.resetMain.disabled = true;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>generateNewCard();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>updateUI();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// --- Game Logic (Card Generation) ---</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function generateNewCard() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>clearCurrentTimer();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>let a, b;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (gameState.mode === 'progression') {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (gameState.currentTable &gt; MAX_TABLE) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>showCompletionScreen();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Progression Mode: 80/20 weighted randomization</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const missingQuestions = [];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>for (let i = 1; i &lt;= MAX_TABLE; i++) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>const key = `${gameState.currentTable}x${i}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>if (!gameState.tableScore[key]) { missingQuestions.push({ a: gameState.currentTable, b: i }); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const shouldFocusOnMissing = missingQuestions.length &gt; 0 &amp;&amp; Math.random() &lt; 0.8;<span class="Apple-converted-space"> </span></span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (shouldFocusOnMissing) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>const index = Math.floor(Math.random() * missingQuestions.length);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>a = missingQuestions[index].a;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>b = missingQuestions[index].b;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>} else {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>const maxMultiplier = gameState.currentTable &gt; MAX_TABLE ? MAX_TABLE : gameState.currentTable;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>a = Math.floor(Math.random() * maxMultiplier) + 1;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>b = Math.floor(Math.random() * MAX_TABLE) + 1;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>} else if (gameState.mode === 'practice') {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Practice Mode: Fixed table</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>a = gameState.practiceTable;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>b = Math.floor(Math.random() * MAX_TABLE) + 1;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>} else if (gameState.mode === 'timed') {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Timed Mode: No repeats in the current level</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (gameState.timedLevelProgress.length === 0) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>gameState.timedLevel++;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>if (gameState.timedLevel &gt; MAX_TABLE) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>elements.feedback.textContent = `All timed tables completed! Final score: ${gameState.timedScore}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>return; // Stop game</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>initializeTimedLevel(gameState.timedLevel);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Pick a random remaining question from the pool</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const index = Math.floor(Math.random() * gameState.timedLevelProgress.length);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const questionKey = gameState.timedLevelProgress[index];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const parts = questionKey.split('x');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>a = parseInt(parts[0], 10);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>b = parseInt(parts[1], 10);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Start the countdown timer</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>gameState.timer = setTimeout(handleTimeout, gameState.difficultyTime);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.feedback.textContent = ''; // Clear feedback for a fresh card</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const answer = a * b;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>gameState.currentEquation = { a, b, answer };</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>gameState.userInput = '';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>elements.equation.textContent = `${a} x ${b}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>elements.userInputDisplay.textContent = '_';</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>elements.numpad.querySelectorAll('button').forEach(btn =&gt; btn.disabled = false);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>elements.completionMessage.classList.add('hidden');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>elements.cardContent.classList.remove('hidden');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function handleTimeout() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// This is called when the timer runs out</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>handleAnswerAttempt(false, true); // Treat as incorrect/timeout</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function checkTableCompletion(tableNumber) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>for(let i = 1; i &lt;= MAX_TABLE; i++) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const key = `${tableNumber}x${i}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (!gameState.tableScore[key]) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>return false;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>return true;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// --- User Input and Visual Feedback ---</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let isHandlingFeedback = false; // Guard to prevent input during the 3s reveal</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function handleAnswerAttempt(isCorrect, isTimeout = false) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>clearCurrentTimer();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>isHandlingFeedback = true;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>elements.numpad.querySelectorAll('button').forEach(btn =&gt; btn.disabled = true);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Progression Logic Update</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (gameState.mode === 'progression' &amp;&amp; isCorrect) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const { a, b } = gameState.currentEquation;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const key = `${a}x${b}`;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (a === gameState.currentTable) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>if (!gameState.tableScore[key]) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>gameState.tableScore[key] = true;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>const allDone = checkTableCompletion(gameState.currentTable);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>if (allDone) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>gameState.currentTable++;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>if (gameState.currentTable &lt;= MAX_TABLE) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                             </span>elements.feedback.textContent = `Excellent! You unlocked the ${gameState.currentTable}x table!`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                             </span>elements.feedback.classList.add('text-green-600');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                             </span>elements.feedback.classList.remove('text-red-600');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>} else if (a &lt; gameState.currentTable) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>gameState.tableScore[key] = true;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>saveProgress();</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>} else if (gameState.mode === 'timed') {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const { a, b } = gameState.currentEquation;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const key = `${a}x${b}`;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Remove the question from the pool immediately on attempt</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>gameState.timedLevelProgress = gameState.timedLevelProgress.filter(q =&gt; q !== key);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (isCorrect) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>gameState.timedScore++;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Check if timed level is complete</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (gameState.timedLevelProgress.length === 0) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>elements.feedback.textContent += " Level complete! Moving to the next table.";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Visual Feedback</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (isCorrect) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const className = 'correct-flash';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.flashcard.classList.add(className);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.feedback.textContent = 'Correct!';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.feedback.classList.add('text-green-600');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.feedback.classList.remove('text-red-600');</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Short flash, then immediately move on</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>setTimeout(() =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>elements.flashcard.classList.remove(className);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>isHandlingFeedback = false;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>generateNewCard();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>updateUI();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}, 400);<span class="Apple-converted-space"> </span></span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>} else {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// INCORRECT OR TIMEOUT: Reveal answer for 3 seconds</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const CORRECT_ANSWER_DELAY_MS = 3000;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const className = 'incorrect-flash';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.flashcard.classList.add(className);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// 1. Reveal Answer</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const correctAnswer = gameState.currentEquation.answer;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.userInputDisplay.textContent = correctAnswer; // Show the correct answer</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (isTimeout) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>elements.feedback.textContent = `Time's up! The answer is ${correctAnswer}.`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>} else {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>elements.feedback.textContent = `Incorrect! The answer is ${correctAnswer}.`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.feedback.classList.add('text-red-600');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.feedback.classList.remove('text-green-600');</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// 2. Wait, then clean up and generate new card</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>setTimeout(() =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>elements.flashcard.classList.remove(className);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>isHandlingFeedback = false;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>generateNewCard();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>updateUI();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}, CORRECT_ANSWER_DELAY_MS);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function checkAnswer() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (gameState.currentTable &gt; MAX_TABLE || isHandlingFeedback) return;<span class="Apple-converted-space"> </span></span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const userAnswer = parseInt(gameState.userInput, 10);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (isNaN(userAnswer)) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.feedback.textContent = "Please enter a number.";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.feedback.classList.add('text-red-600');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.feedback.classList.remove('text-green-600');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const isCorrect = userAnswer === gameState.currentEquation.answer;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>handleAnswerAttempt(isCorrect);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function handleNumpadClick(key) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (gameState.currentTable &gt; MAX_TABLE || isHandlingFeedback) return;<span class="Apple-converted-space"> </span></span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>switch (key) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>case 'clear':</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>gameState.userInput = '';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>break;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>case 'enter':</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>checkAnswer();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>return;<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>default:</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>if (gameState.userInput.length &lt; 3) { // Limit to 3 digits (max 144)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>gameState.userInput += key;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>break;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>elements.userInputDisplay.textContent = gameState.userInput || '_';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>elements.feedback.textContent = '';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function showCompletionScreen() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>clearCurrentTimer();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>elements.completionMessage.classList.remove('hidden');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>elements.cardContent.classList.add('hidden');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>elements.progressText.textContent = "All Tables Mastered!";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>elements.progressBar.style.width = '100%';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// --- UI Updates ---</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function updateUI() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>elements.timedScoreDisplay.classList.add('hidden');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>elements.progressText.classList.remove('hidden');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>elements.progressBar.parentElement.classList.remove('hidden');</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (gameState.mode === 'progression') {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (gameState.currentTable &gt; MAX_TABLE) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>showCompletionScreen();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>let correctInCurrentTable = 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>for (let i = 1; i &lt;= MAX_TABLE; i++) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>const key = `${gameState.currentTable}x${i}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>if (gameState.tableScore[key]) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>correctInCurrentTable++;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const percentage = Math.round((correctInCurrentTable / MAX_TABLE) * 100);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.progressText.textContent = `Level ${gameState.currentTable}: ${correctInCurrentTable}/${MAX_TABLE} Questions Correct (to unlock ${gameState.currentTable + 1}x)`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.progressBar.style.width = `${percentage}%`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.resetMain.classList.remove('hidden');</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>} else if (gameState.mode === 'practice') {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.progressText.textContent = `Practicing ${gameState.practiceTable}x Table`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.progressBar.style.width = '100%';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.progressBar.parentElement.classList.add('hidden');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.resetMain.classList.add('hidden');</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>} else if (gameState.mode === 'timed') {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.progressText.textContent = `Timed Level: ${gameState.timedLevel}x Table (${MAX_TABLE - gameState.timedLevelProgress.length}/${MAX_TABLE})`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.progressBar.style.width = `${((MAX_TABLE - gameState.timedLevelProgress.length) / MAX_TABLE) * 100}%`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.timedScoreDisplay.textContent = `Score: ${gameState.timedScore}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.timedScoreDisplay.classList.remove('hidden');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>elements.resetMain.classList.add('hidden');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// --- Event Listeners ---</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>elements.numpad.addEventListener('click', (e) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (e.target.tagName === 'BUTTON') {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const key = e.target.dataset.key;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>handleNumpadClick(key);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>elements.resetMain.addEventListener('click', resetProgression);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>elements.resetCompletion.addEventListener('click', resetProgression);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>elements.practiceSelect.addEventListener('change', (e) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const value = e.target.value;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (value === 'progression') {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>setMode('progression');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>} else if (value.startsWith('practice-')) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const table = parseInt(value.split('-')[1], 10);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>setMode('practice', table);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>} else if (value.startsWith('timed-')) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const time = parseInt(value.split('-')[1], 10);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>setMode('timed', time);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// Keyboard support for desktop/tablet</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.addEventListener('keydown', (e) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const key = e.key;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (/^\d$/.test(key)) { // 0-9 keys</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>handleNumpadClick(key);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>} else if (key === 'Enter') {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>e.preventDefault();<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>handleNumpadClick('enter');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>} else if (key === 'Backspace' || key === 'Delete') {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>handleNumpadClick('clear');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// --- Start the Game ---</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>loadProgress();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+</body>
+</html>
