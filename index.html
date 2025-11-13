@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplication Flash Cards 1-12</title>
+    <!-- Load Tailwind CSS for modern, responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light blue-gray background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        /* --- Game Board Container --- */
+        .game-container {
+            max-width: 900px;
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+        }
+
+        /* --- Flash Card Styling --- */
+        #flashcard {
+            min-height: 200px;
+            border-radius: 16px;
+            background-color: #3b82f6; /* Blue base */
+            color: white;
+            transition: all 0.1s ease-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            /* Centering content within the card */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .correct-flash {
+            background-color: #10b981 !important; /* Green */
+            box-shadow: 0 0 20px #10b981;
+        }
+        
+        /* Keyframe for the quick spin effect on incorrect answer */
+        @keyframes spin-reveal {
+            0% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.05) rotate(5deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        .incorrect-flash {
+            background-color: #ef4444 !important; /* Red */
+            box-shadow: 0 0 20px #ef4444;
+            animation: spin-reveal 0.3s ease-in-out; /* Apply a quick spin on reveal */
+        }
+
+        /* --- Number Pad Buttons --- */
+        .num-pad-btn {
+            background-color: #e5e7eb; /* Light gray */
+            color: #1f2937; /* Dark text */
+            transition: background-color 0.1s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .num-pad-btn:hover:enabled {
+            background-color: #d1d5db; /* Darker gray on hover */
+        }
+        .num-pad-btn:active:enabled {
+            transform: scale(0.95);
+        }
+
+        /* --- Utility Buttons (Mode/Reset) --- */
+        .utility-btn {
+            font-weight: 600;
+            border-radius: 12px;
+            transition: background-color 0.15s;
+        }
+
+        /* --- Mobile Responsiveness --- */
+        @media (min-width: 640px) {
+            .game-grid {
+                grid-template-columns: 2fr 1fr;
+            }
+            #flashcard {
+                min-height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <!-- Title and Progress Bar -->
+        <header class="text-center mb-6">
+            <h1 id="app-title" class="text-4xl font-extrabold text-gray-800 mb-2">Times Table Trainer</h1>
+            <p class="text-gray-500 font-medium" id="mode-display">Mode: Compounding Progression</p>
+
+            <!-- Current Level/Progress -->
+            <div id="progress-bar-container" class="mt-4">
+                <p id="progress-text" class="text-md font-semibold text-blue-600">
+                    Current Level: 1x Table
+                </p>
+                <div class="w-full bg-gray-200 rounded-full h-3.5 mt-2 overflow-hidden">
+                    <div id="progress-bar" class="bg-green-500 h-3.5 rounded-full transition-all duration-300 ease-out" style="width: 0%"></div>
+                </div>
+                
+                <!-- Timed Mode Score Display -->
+                <p id="timed-score-display" class="text-xl font-bold text-gray-700 mt-4 hidden">
+                    Score: 0
+                </p>
+            </div>
+        </header>
+
+        <main class="grid game-grid gap-6">
+
+            <!-- Flash Card & Input Area -->
+            <section class="flex flex-col space-y-4">
+                <div id="flashcard" class="p-8 text-center flex-grow">
+                    <div id="card-content">
+                        <p class="text-6xl font-bold mb-4" id="equation">
+                            1 x 12
+                        </p>
+                        <p class="text-2xl font-semibold opacity-75">
+                            =
+                        </p>
+                        <p class="text-5xl font-extrabold" id="user-input-display">
+                            _
+                        </p>
+                    </div>
+                    <div id="completion-message" class="hidden text-center">
+                         <p class="text-6xl font-bold mb-4">🥳</p>
+                         <p class="text-3xl font-extrabold">Great Job!</p>
+                         <p class="text-xl mt-2">You completed all the tables!</p>
+                         <button id="reset-button-completion" class="utility-btn bg-red-500 text-white mt-4 py-2 px-6 hover:bg-red-600">Reset Progress</button>
+                    </div>
+                </div>
+                
+                <p id="feedback-message" class="text-center font-semibold h-6"></p>
+            </section>
+
+            <!-- Number Pad and Controls -->
+            <aside class="flex flex-col space-y-4">
+                
+                <!-- Number Pad -->
+                <div id="numpad" class="grid grid-cols-3 gap-3 bg-gray-100 p-4 rounded-xl">
+                    <button class="num-pad-btn py-4 text-3xl rounded-lg" data-key="7">7</button>
+                    <button class="num-pad-btn py-4 text-3xl rounded-lg" data-key="8">8</button>
+                    <button class="num-pad-btn py-4 text-3xl rounded-lg" data-key="9">9</button>
+                    
+                    <button class="num-pad-btn py-4 text-3xl rounded-lg" data-key="4">4</button>
+                    <button class="num-pad-btn py-4 text-3xl rounded-lg" data-key="5">5</button>
+                    <button class="num-pad-btn py-4 text-3xl rounded-lg" data-key="6">6</button>
+
+                    <button class="num-pad-btn py-4 text-3xl rounded-lg" data-key="1">1</button>
+                    <button class="num-pad-btn py-4 text-3xl rounded-lg" data-key="2">2</button>
+                    <button class="num-pad-btn py-4 text-3xl rounded-lg" data-key="3">3</button>
+                    
+                    <button class="num-pad-btn py-4 text-3xl rounded-lg bg-red-400 text-white hover:bg-red-500" data-key="clear">
+                        C
+                    </button>
+                    <button class="num-pad-btn py-4 text-3xl rounded-lg" data-key="0">0</button>
+                    <button class="num-pad-btn py-4 text-3xl rounded-lg bg-green-500 text-white hover:bg-green-600" data-key="enter">
+                        Go
+                    </button>
+                </div>
+
+                <!-- Mode & Reset Controls -->
+                <div class="flex flex-col space-y-3 pt-4 border-t border-gray-200">
+                    <h3 class="text-lg font-bold text-gray-700">Settings</h3>
+
+                    <!-- Table Practice Dropdown -->
+                    <select id="practice-select" class="utility-btn w-full p-3 bg-yellow-400 text-gray-900 hover:bg-yellow-500">
+                        <!-- Options generated by JS -->
+                    </select>
+
+                    <!-- Reset Button -->
+                    <button id="reset-button-main" class="utility-btn bg-red-500 text-white p-3 hover:bg-red-600">
+                        Reset Progress (Compounding Mode)
+                    </button>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <script>
+        // --- Game State and Constants ---
+        const MAX_TABLE = 12;
+        const PROGRESS_STORAGE_KEY = 'multiplicationTrainerProgress';
+        
+        let gameState = {
+            currentTable: 1, // The highest table included in compounding mode
+            mode: 'progression', // 'progression', 'practice', or 'timed'
+            practiceTable: 1, // Only used if mode is 'practice'
+            difficultyTime: 5000, // Time in ms for timed mode
+            timedScore: 0, // Score for timed mode
+            timedLevel: 1, // Current table in timed mode
+            timedLevelProgress: [], // Questions remaining in the current timed level
+            timer: null, // Timer reference for timed mode
+            currentEquation: { a: 0, b: 0, answer: 0 },
+            userInput: '',
+            tableScore: {} // Tracks correct answers for the current table (Compounding Mode)
+        };
+
+        // --- DOM Elements ---
+        const elements = {
+            equation: document.getElementById('equation'),
+            userInputDisplay: document.getElementById('user-input-display'),
+            numpad: document.getElementById('numpad'),
+            flashcard: document.getElementById('flashcard'),
+            feedback: document.getElementById('feedback-message'),
+            progressBar: document.getElementById('progress-bar'),
+            progressText: document.getElementById('progress-text'),
+            modeDisplay: document.getElementById('mode-display'),
+            practiceSelect: document.getElementById('practice-select'),
+            resetMain: document.getElementById('reset-button-main'),
+            resetCompletion: document.getElementById('reset-button-completion'),
+            cardContent: document.getElementById('card-content'),
+            completionMessage: document.getElementById('completion-message'),
+            timedScoreDisplay: document.getElementById('timed-score-display'),
+        };
+        
+        // --- Helper Function ---
+        function clearCurrentTimer() {
+            if (gameState.timer) {
+                clearTimeout(gameState.timer);
+                gameState.timer = null;
+            }
+        }
+
+
+        // --- Initialization and Persistence ---
+
+        function loadProgress() {
+            const savedState = localStorage.getItem(PROGRESS_STORAGE_KEY);
+            if (savedState) {
+                const loaded = JSON.parse(savedState);
+                
+                if(loaded.currentTable) {
+                    gameState.currentTable = loaded.currentTable;
+                }
+                if(loaded.tableScore) {
+                    gameState.tableScore = loaded.tableScore;
+                }
+
+                if (gameState.currentTable > MAX_TABLE) {
+                    gameState.currentTable = MAX_TABLE + 1; 
+                }
+            }
+            initializePracticeDropdown();
+            updateUI();
+            generateNewCard();
+        }
+
+        function saveProgress() {
+            const stateToSave = {
+                currentTable: gameState.currentTable,
+                tableScore: gameState.tableScore
+            };
+            localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(stateToSave));
+        }
+
+        function resetProgression() {
+            gameState.currentTable = 1;
+            gameState.tableScore = {};
+            gameState.userInput = '';
+            
+            elements.completionMessage.classList.add('hidden');
+            elements.cardContent.classList.remove('hidden');
+
+            saveProgress();
+            setMode('progression');
+            generateNewCard();
+            updateUI();
+            elements.feedback.textContent = "Progress reset! Starting with 1x table.";
+            elements.feedback.classList.remove('text-green-600');
+            elements.feedback.classList.add('text-red-600');
+        }
+
+        // --- Mode and UI Switching ---
+
+        function initializePracticeDropdown() {
+            elements.practiceSelect.innerHTML = '<option value="progression">-- Compounding Tables Mode --</option>';
+            
+            // Add practice tables
+            for (let i = 1; i <= MAX_TABLE; i++) {
+                const option = document.createElement('option');
+                option.value = `practice-${i}`;
+                option.textContent = `Practice ${i}x Table Only`;
+                elements.practiceSelect.appendChild(option);
+            }
+            
+            // Add timed competition modes
+            elements.practiceSelect.innerHTML += `
+                <option value="timed-5000">Timed Competition (Easy: 5s)</option>
+                <option value="timed-3000">Timed Competition (Medium: 3s)</option>
+                <option value="timed-2000">Timed Competition (Hard: 2s)</option>
+            `;
+        }
+        
+        function initializeTimedLevel(table) {
+             // Populate the level with all 12 questions for the given table
+            gameState.timedLevelProgress = [];
+            for (let i = 1; i <= MAX_TABLE; i++) {
+                gameState.timedLevelProgress.push(`${table}x${i}`);
+            }
+        }
+
+        function setMode(newMode, value = null) {
+            clearCurrentTimer(); // Always clear timer when changing modes
+            gameState.userInput = '';
+            
+            if (newMode === 'progression') {
+                gameState.mode = 'progression';
+                elements.modeDisplay.textContent = "Mode: Compounding Progression";
+                elements.resetMain.disabled = false;
+            } else if (newMode === 'practice') {
+                gameState.mode = 'practice';
+                gameState.practiceTable = value;
+                elements.modeDisplay.textContent = `Mode: Practice ${value}x Table Only`;
+                elements.resetMain.disabled = true;
+            } else if (newMode === 'timed') {
+                gameState.mode = 'timed';
+                gameState.difficultyTime = value;
+                gameState.timedScore = 0;
+                gameState.timedLevel = 1;
+                initializeTimedLevel(1);
+                elements.modeDisplay.textContent = `Mode: Timed Competition (${value / 1000}s)`;
+                elements.resetMain.disabled = true;
+            }
+            
+            generateNewCard();
+            updateUI();
+        }
+
+
+        // --- Game Logic (Card Generation) ---
+
+        function generateNewCard() {
+            clearCurrentTimer();
+            let a, b;
+
+            if (gameState.mode === 'progression') {
+                if (gameState.currentTable > MAX_TABLE) {
+                    showCompletionScreen();
+                    return;
+                }
+                // Progression Mode: 80/20 weighted randomization
+                const missingQuestions = [];
+                for (let i = 1; i <= MAX_TABLE; i++) {
+                    const key = `${gameState.currentTable}x${i}`;
+                    if (!gameState.tableScore[key]) { missingQuestions.push({ a: gameState.currentTable, b: i }); }
+                }
+
+                const shouldFocusOnMissing = missingQuestions.length > 0 && Math.random() < 0.8; 
+
+                if (shouldFocusOnMissing) {
+                    const index = Math.floor(Math.random() * missingQuestions.length);
+                    a = missingQuestions[index].a;
+                    b = missingQuestions[index].b;
+                } else {
+                    const maxMultiplier = gameState.currentTable > MAX_TABLE ? MAX_TABLE : gameState.currentTable;
+                    a = Math.floor(Math.random() * maxMultiplier) + 1;
+                    b = Math.floor(Math.random() * MAX_TABLE) + 1;
+                }
+                
+            } else if (gameState.mode === 'practice') {
+                // Practice Mode: Fixed table
+                a = gameState.practiceTable;
+                b = Math.floor(Math.random() * MAX_TABLE) + 1;
+            
+            } else if (gameState.mode === 'timed') {
+                // Timed Mode: No repeats in the current level
+                if (gameState.timedLevelProgress.length === 0) {
+                    gameState.timedLevel++;
+                    if (gameState.timedLevel > MAX_TABLE) {
+                        elements.feedback.textContent = `All timed tables completed! Final score: ${gameState.timedScore}`;
+                        return; // Stop game
+                    }
+                    initializeTimedLevel(gameState.timedLevel);
+                }
+
+                // Pick a random remaining question from the pool
+                const index = Math.floor(Math.random() * gameState.timedLevelProgress.length);
+                const questionKey = gameState.timedLevelProgress[index];
+                const parts = questionKey.split('x');
+                a = parseInt(parts[0], 10);
+                b = parseInt(parts[1], 10);
+
+                // Start the countdown timer
+                gameState.timer = setTimeout(handleTimeout, gameState.difficultyTime);
+                elements.feedback.textContent = ''; // Clear feedback for a fresh card
+            }
+
+            const answer = a * b;
+
+            gameState.currentEquation = { a, b, answer };
+            gameState.userInput = '';
+            elements.equation.textContent = `${a} x ${b}`;
+            elements.userInputDisplay.textContent = '_';
+            
+            elements.numpad.querySelectorAll('button').forEach(btn => btn.disabled = false);
+            elements.completionMessage.classList.add('hidden');
+            elements.cardContent.classList.remove('hidden');
+        }
+        
+        function handleTimeout() {
+            // This is called when the timer runs out
+            handleAnswerAttempt(false, true); // Treat as incorrect/timeout
+        }
+        
+        function checkTableCompletion(tableNumber) {
+            for(let i = 1; i <= MAX_TABLE; i++) {
+                const key = `${tableNumber}x${i}`;
+                if (!gameState.tableScore[key]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // --- User Input and Visual Feedback ---
+
+        let isHandlingFeedback = false; // Guard to prevent input during the 3s reveal
+
+        function handleAnswerAttempt(isCorrect, isTimeout = false) {
+            clearCurrentTimer();
+            isHandlingFeedback = true;
+            elements.numpad.querySelectorAll('button').forEach(btn => btn.disabled = true);
+            
+            // Progression Logic Update
+            if (gameState.mode === 'progression' && isCorrect) {
+                const { a, b } = gameState.currentEquation;
+                const key = `${a}x${b}`;
+                
+                if (a === gameState.currentTable) {
+                    if (!gameState.tableScore[key]) {
+                        gameState.tableScore[key] = true;
+                    }
+                    const allDone = checkTableCompletion(gameState.currentTable);
+                    if (allDone) {
+                        gameState.currentTable++;
+                        if (gameState.currentTable <= MAX_TABLE) {
+                             elements.feedback.textContent = `Excellent! You unlocked the ${gameState.currentTable}x table!`;
+                             elements.feedback.classList.add('text-green-600');
+                             elements.feedback.classList.remove('text-red-600');
+                        }
+                    }
+                } else if (a < gameState.currentTable) {
+                    gameState.tableScore[key] = true;
+                }
+                saveProgress();
+
+            } else if (gameState.mode === 'timed') {
+                const { a, b } = gameState.currentEquation;
+                const key = `${a}x${b}`;
+
+                // Remove the question from the pool immediately on attempt
+                gameState.timedLevelProgress = gameState.timedLevelProgress.filter(q => q !== key);
+                
+                if (isCorrect) {
+                    gameState.timedScore++;
+                }
+
+                // Check if timed level is complete
+                if (gameState.timedLevelProgress.length === 0) {
+                    elements.feedback.textContent += " Level complete! Moving to the next table.";
+                }
+            }
+
+            // Visual Feedback
+            if (isCorrect) {
+                const className = 'correct-flash';
+                elements.flashcard.classList.add(className);
+                elements.feedback.textContent = 'Correct!';
+                elements.feedback.classList.add('text-green-600');
+                elements.feedback.classList.remove('text-red-600');
+
+                // Short flash, then immediately move on
+                setTimeout(() => {
+                    elements.flashcard.classList.remove(className);
+                    isHandlingFeedback = false;
+                    generateNewCard();
+                    updateUI();
+                }, 400); 
+
+            } else {
+                // INCORRECT OR TIMEOUT: Reveal answer for 3 seconds
+                const CORRECT_ANSWER_DELAY_MS = 3000;
+                
+                const className = 'incorrect-flash';
+                elements.flashcard.classList.add(className);
+
+                // 1. Reveal Answer
+                const correctAnswer = gameState.currentEquation.answer;
+                elements.userInputDisplay.textContent = correctAnswer; // Show the correct answer
+                
+                if (isTimeout) {
+                    elements.feedback.textContent = `Time's up! The answer is ${correctAnswer}.`;
+                } else {
+                    elements.feedback.textContent = `Incorrect! The answer is ${correctAnswer}.`;
+                }
+                elements.feedback.classList.add('text-red-600');
+                elements.feedback.classList.remove('text-green-600');
+
+                // 2. Wait, then clean up and generate new card
+                setTimeout(() => {
+                    elements.flashcard.classList.remove(className);
+                    isHandlingFeedback = false;
+                    generateNewCard();
+                    updateUI();
+                }, CORRECT_ANSWER_DELAY_MS);
+            }
+        }
+        
+        function checkAnswer() {
+            if (gameState.currentTable > MAX_TABLE || isHandlingFeedback) return; 
+
+            const userAnswer = parseInt(gameState.userInput, 10);
+            
+            if (isNaN(userAnswer)) {
+                elements.feedback.textContent = "Please enter a number.";
+                elements.feedback.classList.add('text-red-600');
+                elements.feedback.classList.remove('text-green-600');
+                return;
+            }
+
+            const isCorrect = userAnswer === gameState.currentEquation.answer;
+            handleAnswerAttempt(isCorrect);
+        }
+
+        function handleNumpadClick(key) {
+            if (gameState.currentTable > MAX_TABLE || isHandlingFeedback) return; 
+
+            switch (key) {
+                case 'clear':
+                    gameState.userInput = '';
+                    break;
+                case 'enter':
+                    checkAnswer();
+                    return; 
+                default:
+                    if (gameState.userInput.length < 3) { // Limit to 3 digits (max 144)
+                        gameState.userInput += key;
+                    }
+                    break;
+            }
+            
+            elements.userInputDisplay.textContent = gameState.userInput || '_';
+            elements.feedback.textContent = '';
+        }
+
+        
+        function showCompletionScreen() {
+            clearCurrentTimer();
+            elements.completionMessage.classList.remove('hidden');
+            elements.cardContent.classList.add('hidden');
+            elements.progressText.textContent = "All Tables Mastered!";
+            elements.progressBar.style.width = '100%';
+        }
+
+
+        // --- UI Updates ---
+
+        function updateUI() {
+            elements.timedScoreDisplay.classList.add('hidden');
+            elements.progressText.classList.remove('hidden');
+            elements.progressBar.parentElement.classList.remove('hidden');
+
+            if (gameState.mode === 'progression') {
+                if (gameState.currentTable > MAX_TABLE) {
+                    showCompletionScreen();
+                    return;
+                }
+                
+                let correctInCurrentTable = 0;
+                for (let i = 1; i <= MAX_TABLE; i++) {
+                    const key = `${gameState.currentTable}x${i}`;
+                    if (gameState.tableScore[key]) {
+                        correctInCurrentTable++;
+                    }
+                }
+                
+                const percentage = Math.round((correctInCurrentTable / MAX_TABLE) * 100);
+                
+                elements.progressText.textContent = `Level ${gameState.currentTable}: ${correctInCurrentTable}/${MAX_TABLE} Questions Correct (to unlock ${gameState.currentTable + 1}x)`;
+                elements.progressBar.style.width = `${percentage}%`;
+                elements.resetMain.classList.remove('hidden');
+                
+            } else if (gameState.mode === 'practice') {
+                elements.progressText.textContent = `Practicing ${gameState.practiceTable}x Table`;
+                elements.progressBar.style.width = '100%';
+                elements.progressBar.parentElement.classList.add('hidden');
+                elements.resetMain.classList.add('hidden');
+            
+            } else if (gameState.mode === 'timed') {
+                elements.progressText.textContent = `Timed Level: ${gameState.timedLevel}x Table (${MAX_TABLE - gameState.timedLevelProgress.length}/${MAX_TABLE})`;
+                elements.progressBar.style.width = `${((MAX_TABLE - gameState.timedLevelProgress.length) / MAX_TABLE) * 100}%`;
+                elements.timedScoreDisplay.textContent = `Score: ${gameState.timedScore}`;
+                elements.timedScoreDisplay.classList.remove('hidden');
+                elements.resetMain.classList.add('hidden');
+            }
+        }
+
+
+        // --- Event Listeners ---
+
+        elements.numpad.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                const key = e.target.dataset.key;
+                handleNumpadClick(key);
+            }
+        });
+        
+        elements.resetMain.addEventListener('click', resetProgression);
+        elements.resetCompletion.addEventListener('click', resetProgression);
+        
+        elements.practiceSelect.addEventListener('change', (e) => {
+            const value = e.target.value;
+            if (value === 'progression') {
+                setMode('progression');
+            } else if (value.startsWith('practice-')) {
+                const table = parseInt(value.split('-')[1], 10);
+                setMode('practice', table);
+            } else if (value.startsWith('timed-')) {
+                const time = parseInt(value.split('-')[1], 10);
+                setMode('timed', time);
+            }
+        });
+
+        // Keyboard support for desktop/tablet
+        document.addEventListener('keydown', (e) => {
+            const key = e.key;
+            if (/^\d$/.test(key)) { // 0-9 keys
+                handleNumpadClick(key);
+            } else if (key === 'Enter') {
+                e.preventDefault(); 
+                handleNumpadClick('enter');
+            } else if (key === 'Backspace' || key === 'Delete') {
+                handleNumpadClick('clear');
+            }
+        });
+
+        // --- Start the Game ---
+        loadProgress();
+    </script>
+</body>
+</html>
